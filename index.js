@@ -25,13 +25,14 @@ app.post("/webhook", async function (req, res) {
   console.log(data);
   console.log(data.entry[0]);
   console.log(data.entry[0].id);
+  console.log(data.entry[0].changes[0].value.messages[0]);
   console.log(data.entry[0].changes[0].value.messages[0].from);
 
   const number = data.entry[0].changes[0].value.messages[0].from;
 
   const messageeee = "Oi eu sou um CHAT BOT, em que posso te ajudar?";
-  await apiChatApi("5579999889371", "TESTEEEEE");
-  
+  //await apiChatApi("5579999889371", "TESTEEEEE");
+
   res.send("Ok");
   /* 
 
