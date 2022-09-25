@@ -68,8 +68,8 @@ app.post('/webhook', async function (req, res) {
 
 app.get('/webhook', async function (req, res) {
     const data = req.query;
-    console.log(data);
-    res.send(data.hub.challenge);
+    data["hub.challenge"];
+    res.send(data["hub.challenge"]);
 });
 
 app.listen(process.env.PORT ?? 3000, function () {
