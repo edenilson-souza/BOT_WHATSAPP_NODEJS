@@ -107,7 +107,7 @@ async function apiChatApi(method, params) {
     options['headers'] = 
     {
         'Content-Type': 'application/json', 
-        "Authorization": `Bearer ${token}`
+        "Authorization": `${token}`
     };
 
     
