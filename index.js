@@ -18,18 +18,18 @@ app.get("/", async function (req, res) {
   await apiChatApi("557999889371", "TESTEEEEE");
 });
 
-app.post("/webhook", async function (req, res) {
+app.post("/webhook", function (req, res) {
   const data = req.body;
-  console.log(data);
+/*   console.log(data);
   console.log(data.entry[0]);
   console.log(data.entry[0].id);
   console.log(data.entry[0].changes[0].value.messages[0]);
-  console.log(data.entry[0].changes[0].value.messages[0].from);
+  console.log(data.entry[0].changes[0].value.messages[0].from); */
 
   const phone_number = `${data.entry[0].changes[0].value.messages[0].from}`;
   const messageeee = "Oi eu sou um CHAT BOT, em que posso te ajudar?";
 
-  await apiChatApi(phone_number, messageeee);
+  apiChatApi(phone_number, messageeee);
 
   res.send("Ok");
   /* 
@@ -86,7 +86,7 @@ app.post("/webhook", async function (req, res) {
 
 app.get("/webhook", async function (req, res) {
   const data = req.query;
-  console.log(data);
+  /* console.log(data); */
   res.send(data["hub.challenge"]);
 });
 
@@ -121,4 +121,6 @@ async function apiChatApi(telefone, message) {
         "Bearer EAAFuiawAhM4BAKjJo0Vb6eH8UR9cNymqT0p2cmH2saZCG7J5J6xtZBQtvHOqwFoD3GHtQNxZAdAkeCcSybzZB7gT95jRVbP6iJgawuaYyxyxsZCZBjboqefClAE0gxpUQSCubxVxNDiiG5hcTFD9QjyFM03UMRg5udl3p00d0QZBADxh08uN58mBhyJTsfuhYtG02d5WZCDZBQS1uHyZCRDuobhkoAJG0nxZCYZD",
     },
   });
+
+  
 }
