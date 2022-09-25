@@ -27,7 +27,7 @@ app.post("/webhook", function (req, res) {
   console.log(data.entry[0].changes[0].value.messages[0].from); */
 
   const phone_number = `${data.entry[0].changes[0].value.messages[0].from}`;
-  const messageeee = "Oi eu sou um CHAT BOT, em que posso te ajudar?";
+  const messageeee = 'Olá, você ainda não possui cadastro, vamos começar? (Digite "SAIR" para finalizar conversa) \n Responda:\n1 para "Sim"\n2 para "Não"';
 
   apiChatApi(phone_number, messageeee);
 
