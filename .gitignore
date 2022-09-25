@@ -5,3 +5,5 @@ docs.docx
 # Модули
 /node_modules/*
 /package-lock.json
+
+.env

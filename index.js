@@ -22,21 +22,16 @@ const chats_ativos = [];
 
 app.post("/webhook", function (req, res) {
   const data = req.body;
-/*   console.log(data);
-  console.log(data.entry[0]);
-  console.log(data.entry[0].id);
-  console.log(data.entry[0].changes[0].value.messages[0]);
-  console.log(data.entry[0].changes[0].value.messages[0].from); */
 
   const phone_number = `${data.entry[0].changes[0].value.messages[0].from}`;
   const message_user = `${data.entry[0].changes[0].value.messages[0].text.body}`
 
   let session = chats_ativos.find(telefone => telefone = phone_number);
   if(session){
-    console.log(session);
+    //console.log(session);
   }else{
     chats_ativos.push({telefone: phone_number, sequencia: 0});
-    console.log("Session criada.")
+    //console.log("Session criada.")
     session = chats_ativos.find(telefone => telefone = phone_number);
   }
 
@@ -71,10 +66,8 @@ app.post("/webhook", function (req, res) {
 
   apiChatApi(phone_number, resposta_to);
 
-  res.send({session, resposta_to});
-  /* 
-
-  
+  res.send({phone_number, resposta_to});
+  /*   
     for (let i in data.messages) {
         const author = data.messages[i].author;
         const body = data.messages[i].body;
