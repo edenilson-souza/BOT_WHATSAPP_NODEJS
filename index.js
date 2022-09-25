@@ -23,44 +23,40 @@ app.post("/webhook", function (req, res) {
   const data = req.body;
 
   const phone_number = `${data.entry[0].changes[0].value.messages[0].from}`;
-  const message_user = `${data.entry[0].changes[0].value.messages[0].text.body}`
+  const message_user = `${data.entry[0].changes[0].value.messages[0].text.body}`;
 
-  let session = chats_ativos.find(telefone => telefone = phone_number);
-  if(session){
+  let session = chats_ativos.find((telefone) => (telefone = phone_number));
+  if (session) {
     //console.log(session);
-  }else{
-    chats_ativos.push({telefone: phone_number, sequencia: 0});
+  } else {
+    chats_ativos.push({ telefone: phone_number, sequencia: 0 });
     //console.log("Session criada.")
-    session = chats_ativos.find(telefone => telefone = phone_number);
+    session = chats_ativos.find((telefone) => (telefone = phone_number));
   }
 
-
-  let resposta_to = '';
-  i = chats_ativos.findIndex((telefone => telefone = phone_number));
-  if(message_user.toUpperCase() == "SAIR"){
+  let resposta_to = "";
+  i = chats_ativos.findIndex((telefone) => (telefone = phone_number));
+  if (message_user.toUpperCase() == "SAIR") {
     chats_ativos[i].sequencia = 0;
   }
-  if(session.sequencia == 0){
-    resposta_to = 'Olá, você ainda não possui cadastro, vamos começar? (Digite "SAIR" para finalizar conversa)\nResponda:\n1 para "Sim"\n2 para "Não"';
+  if (session.sequencia == 0) {
+    resposta_to =
+      'Olá, você ainda não possui cadastro, vamos começar? (Digite "SAIR" para finalizar conversa)\nResponda:\n1 para "Sim"\n2 para "Não"';
     chats_ativos[i].sequencia = 1;
-  }
-  else if(session.sequencia == 1){
-    if(message_user == "1"){
-      resposta_to = 'Ok, vamos começar :D\nPor favor, me informe seu nome.';
+  } else if (session.sequencia == 1) {
+    if (message_user == "1") {
+      resposta_to = "Ok, vamos começar :D\nPor favor, me informe seu nome.";
       chats_ativos[i].sequencia = 2;
-    }
-    else if(message_user == "2"){
+    } else if (message_user == "2") {
       chats_ativos[i].sequencia = 0;
-    }else{
-      resposta_to = 'Por favor, me informe o número da opção desejada.'
+    } else {
+      resposta_to = "Por favor, me informe o número da opção desejada.";
     }
-  }
-  else if(session.sequencia == 2){
+  } else if (session.sequencia == 2) {
     chats_ativos[i].nome = message_user.toUpperCase();
     chats_ativos[i].sequencia = 3;
     resposta_to = `Olá, ${message_user}!\nAgora me informe seu CPF.`;
-  }
-  else if(session.sequencia == 3){
+  } else if (session.sequencia == 3) {
     chats_ativos[i].cpf = message_user;
     resposta_to = `Por favor, confirme as informações.\nNome: ${chats_ativos[i].nome}\nCPF: ${chats_ativos[i].cpf}\n\nResponda:\n1 para "Sim"\n2 para "Não"`;
     chats_ativos[i].sequencia = 4;
@@ -68,7 +64,7 @@ app.post("/webhook", function (req, res) {
 
   apiChatApi(phone_number, resposta_to);
 
-  res.send({phone_number, resposta_to});
+  res.send({ phone_number, resposta_to });
 });
 
 app.get("/webhook", async function (req, res) {
@@ -81,16 +77,13 @@ app.listen(process.env.PORT ?? 3000, function () {
 });
 
 async function apiChatApi(telefone, message) {
-    let phone = telefone;
-    if (phone.length != 13) {
-        const a = phone.split("");
-        phone = a[0]+a[1]+a[2]+a[3]+'9'+a[4]+a[5]+a[6]+a[7]+a[8]+a[9]+a[10]+a[11];
-    }
-
-    //console.log(message);
-
+  let phone = telefone;
+  if (phone.length != 13) {
+    const a = phone.split("");
+    phone = a[0] + a[1] + a[2] + a[3] + "9" + a[4] + a[5] + a[6] + a[7] + a[8] + a[9] + a[10] + a[11];
+  }
+  //console.log(message);
   const url = `${apiUrl}/messages`;
-
   axios({
     method: "post",
     url,
@@ -103,8 +96,7 @@ async function apiChatApi(telefone, message) {
     },
     headers: {
       "Content-Type": "application/json",
-      Authorization:
-        "Bearer EAAFuiawAhM4BAKjJo0Vb6eH8UR9cNymqT0p2cmH2saZCG7J5J6xtZBQtvHOqwFoD3GHtQNxZAdAkeCcSybzZB7gT95jRVbP6iJgawuaYyxyxsZCZBjboqefClAE0gxpUQSCubxVxNDiiG5hcTFD9QjyFM03UMRg5udl3p00d0QZBADxh08uN58mBhyJTsfuhYtG02d5WZCDZBQS1uHyZCRDuobhkoAJG0nxZCYZD",
+      Authorization: `Bearer ${process.env.TOKEN}`,
     },
-  });  
+  });
 }
