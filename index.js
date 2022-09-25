@@ -14,9 +14,11 @@ process.on("unhandledRejection", (err) => {
 });
 
 app.get("/", async function (req, res) {
-  res.send("It's work HAHAHAHA.");
-  await apiChatApi("557999889371", "TESTEEEEE");
+  res.send("It's work.");
+  //await apiChatApi("557999889371", "TESTEEEEE");
 });
+
+const chats_ativos = [];
 
 app.post("/webhook", function (req, res) {
   const data = req.body;
@@ -27,6 +29,17 @@ app.post("/webhook", function (req, res) {
   console.log(data.entry[0].changes[0].value.messages[0].from); */
 
   const phone_number = `${data.entry[0].changes[0].value.messages[0].from}`;
+
+  const session = chats_ativos.find(telefone => telefone = phone_number);
+  if(session){
+    console.log("SESSION ENCONTRADA:" + session);
+  }else{
+    chats_ativos.push({telefone: phone_number});
+    console.log("Session criada.")
+  }
+
+
+
   const messageeee = 'Olá, você ainda não possui cadastro, vamos começar? (Digite "SAIR" para finalizar conversa) \n Responda:\n1 para "Sim"\n2 para "Não"';
 
   apiChatApi(phone_number, messageeee);
