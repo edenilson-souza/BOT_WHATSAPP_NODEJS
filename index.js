@@ -27,14 +27,13 @@ app.post('/webhook', async function (req, res) {
     const messageeee = 
     { "messaging_product": "whatsapp", 
         "to": number, 
-        "type": "template", 
-        "template": { 
-            "name": "Oi eu sou um teste", 
-            "language": { 
-                "code": "pt_BR" 
-            } 
-        } 
+        "text": {
+			"body": "PRIMEIRA MENSAGEM"
+		}
     };
+
+
+
 
 
 
@@ -111,7 +110,7 @@ async function apiChatApi(method, params) {
     options['headers'] = 
     {
         'Content-Type': 'application/json', 
-        "Authorization": `Bearer ${token}`
+        "Authorization": `${token}`
     };
 
     
