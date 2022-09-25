@@ -18,6 +18,8 @@ app.get('/', function (req, res) {
 app.post('/webhook', async function (req, res) {
     const data = req.body;
     console.log(data);
+    console.log(data.entry);
+    console.log(data.entry[0]);
     const chatId = data.entry[0].id;
     await apiChatApi('message', {chatId: chatId, body: "Oi eu sou um teste"});
     res.send('Ok');
