@@ -33,11 +33,7 @@ app.post('/webhook', async function (req, res) {
     };
 
 
-
-
-
-
-    await apiChatApi('message', messageeee);
+    await apiChatApi('messages', messageeee);
     res.send('Ok');
     /* 
 
@@ -110,7 +106,7 @@ async function apiChatApi(method, params) {
     options['headers'] = 
     {
         'Content-Type': 'application/json', 
-        "Authorization": `${token}`
+        "Authorization": `Bearer ${token}`
     };
 
     
@@ -118,6 +114,7 @@ async function apiChatApi(method, params) {
     const url = `${apiUrl}/${method}`;
 
     const apiResponse = await fetch(url, options);
+
     try {
         return await apiResponse.json();
     } catch (e) {
