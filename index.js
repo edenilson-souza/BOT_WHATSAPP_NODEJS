@@ -16,8 +16,6 @@ process.on("unhandledRejection", (err) => {
 app.get("/", async function (req, res) {
   res.send("It's work HAHAHAHA.");
   await apiChatApi("5579999889371", "TESTEEEEE");
- 
-
 });
 
 app.post("/webhook", async function (req, res) {
@@ -28,7 +26,12 @@ app.post("/webhook", async function (req, res) {
   console.log(data.entry[0].changes[0].value.messages[0]);
   console.log(data.entry[0].changes[0].value.messages[0].from);
 
-  const phone_number = `${data.entry[0].changes[0].value.messages[0].from}`;
+  let phone_number = `${data.entry[0].changes[0].value.messages[0].from}`;
+
+  if (phone_number.length != 13) {
+    const a = phone_number.split("");
+    phone_number = a[0]+a[1]+a[2]+a[3]+'9'+a[4]+a[5]+a[6]+a[7]+a[8]+a[9]+a[10]+a[11]+a[12];
+  }
 
   const messageeee = "Oi eu sou um CHAT BOT, em que posso te ajudar?";
   await apiChatApi(phone_number, messageeee);
@@ -97,26 +100,22 @@ app.listen(process.env.PORT ?? 3000, function () {
 });
 
 async function apiChatApi(telefone, message) {
-  
+  const url = `${apiUrl}/messages`;
 
-    const url = `${apiUrl}/messages`;
-
-    axios({
-      method: "post",
-      url,
-      data: {
-        messaging_product: "whatsapp",
-        to: `${telefone}`,
-        text: {
-          body: message,
-        },
+  axios({
+    method: "post",
+    url,
+    data: {
+      messaging_product: "whatsapp",
+      to: `${telefone}`,
+      text: {
+        body: message,
       },
-      headers: {
-        "Content-Type": "application/json",
-        Authorization:
-          "Bearer EAAFuiawAhM4BAKjJo0Vb6eH8UR9cNymqT0p2cmH2saZCG7J5J6xtZBQtvHOqwFoD3GHtQNxZAdAkeCcSybzZB7gT95jRVbP6iJgawuaYyxyxsZCZBjboqefClAE0gxpUQSCubxVxNDiiG5hcTFD9QjyFM03UMRg5udl3p00d0QZBADxh08uN58mBhyJTsfuhYtG02d5WZCDZBQS1uHyZCRDuobhkoAJG0nxZCYZD",
-      },
-    });
-
-
+    },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization:
+        "Bearer EAAFuiawAhM4BAKjJo0Vb6eH8UR9cNymqT0p2cmH2saZCG7J5J6xtZBQtvHOqwFoD3GHtQNxZAdAkeCcSybzZB7gT95jRVbP6iJgawuaYyxyxsZCZBjboqefClAE0gxpUQSCubxVxNDiiG5hcTFD9QjyFM03UMRg5udl3p00d0QZBADxh08uN58mBhyJTsfuhYtG02d5WZCDZBQS1uHyZCRDuobhkoAJG0nxZCYZD",
+    },
+  });
 }
