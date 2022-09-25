@@ -34,7 +34,7 @@ app.post("/webhook", function (req, res) {
   if(session){
     console.log("SESSION ENCONTRADA:" + session);
   }else{
-    chats_ativos.push({telefone: phone_number});
+    chats_ativos.push({telefone: phone_number, sequencia: 1});
     console.log("Session criada.")
   }
 
