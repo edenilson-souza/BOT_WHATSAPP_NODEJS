@@ -43,6 +43,9 @@ app.post("/webhook", function (req, res) {
 
   let resposta_to = '';
   i = chats_ativos.findIndex((telefone => telefone = phone_number));
+  if(message_user.toUpperCase() == "SAIR"){
+    chats_ativos[i].sequencia = 0;
+  }
   if(session.sequencia == 0){
     resposta_to = 'Olá, você ainda não possui cadastro, vamos começar? (Digite "SAIR" para finalizar conversa) \n Responda:\n1 para "Sim"\n2 para "Não"';
     chats_ativos[i].sequencia = 1;
