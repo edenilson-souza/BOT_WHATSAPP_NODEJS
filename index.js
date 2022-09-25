@@ -50,13 +50,20 @@ app.post("/webhook", function (req, res) {
   else if(session.sequencia == 1){
     if(message_user == "1"){
       resposta_to = 'Ok, vamos começar :D\nPor favor, me informe seu nome.';
-      //chats_ativos[i].sequencia = 1;
+      chats_ativos[i].sequencia = 2;
     }else{
       resposta_to = 'Por favor, me informe o número da opção desejada.'
     }
-   
   }
-
+  else if(session.sequencia == 2){
+    resposta_to = `Olá, ${message_user}!\nAgora me informe seu CPF.`;
+    chats_ativos[i].cpf = message_user;
+    chats_ativos[i].sequencia = 3;
+  }
+  else if(session.sequencia == 3){
+    resposta_to = `Por favor, confirme as informações.\nNome: ${chats_ativos[i].nome}\nCPF: ${chats_ativos[i].cpf}\n\nResponda:\n1 para "Sim"\n2 para "Não"`;
+    chats_ativos[i].sequencia = 4;
+  }
 
   apiChatApi(phone_number, resposta_to);
 
