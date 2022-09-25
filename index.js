@@ -103,11 +103,11 @@ app.listen(process.env.PORT ?? 3000, function () {
 async function apiChatApi(method, params) {
     const options = {};
     options['method'] = "POST";
-    options['body'] = JSON.stringify(params);
+    options['body'] = params;
     options['headers'] = 
     {
         'Content-Type': 'application/json', 
-        "Authorization": `${token}`
+        "Authorization": `Bearer EAAFuiawAhM4BAKjJo0Vb6eH8UR9cNymqT0p2cmH2saZCG7J5J6xtZBQtvHOqwFoD3GHtQNxZAdAkeCcSybzZB7gT95jRVbP6iJgawuaYyxyxsZCZBjboqefClAE0gxpUQSCubxVxNDiiG5hcTFD9QjyFM03UMRg5udl3p00d0QZBADxh08uN58mBhyJTsfuhYtG02d5WZCDZBQS1uHyZCRDuobhkoAJG0nxZCYZD`
     };
 
     
@@ -116,6 +116,7 @@ async function apiChatApi(method, params) {
 
     const apiResponse = await fetch(url, options);
 
+    console.log()
     console.log(apiResponse);
 
     try {
