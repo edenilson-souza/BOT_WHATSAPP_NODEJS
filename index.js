@@ -13,9 +13,9 @@ process.on("unhandledRejection", (err) => {
   console.log(err);
 });
 
-app.get("/", function (req, res) {
+app.get("/", async function (req, res) {
   res.send("It's work HAHAHAHA.");
-
+  await apiChatApi("5579999889371", "TESTEEEEE");
  
 
 });
@@ -30,7 +30,8 @@ app.post("/webhook", async function (req, res) {
   const number = data.entry[0].changes[0].value.messages[0].from;
 
   const messageeee = "Oi eu sou um CHAT BOT, em que posso te ajudar?";
-  await apiChatApi(number, messageeee);
+  await apiChatApi("5579999889371", "TESTEEEEE");
+  
   res.send("Ok");
   /* 
 
