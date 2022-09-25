@@ -15,6 +15,9 @@ process.on("unhandledRejection", (err) => {
 
 app.get("/", function (req, res) {
   res.send("It's work HAHAHAHA.");
+
+ 
+
 });
 
 app.post("/webhook", async function (req, res) {
@@ -26,13 +29,7 @@ app.post("/webhook", async function (req, res) {
 
   const number = data.entry[0].changes[0].value.messages[0].from;
 
-  const messageeee = {
-    messaging_product: "whatsapp",
-    to: `number`,
-    text: {
-      body: "Oi eu sou um CHAT BOT, em que posso te ajudar?",
-    },
-  };
+  const messageeee = "Oi eu sou um CHAT BOT, em que posso te ajudar?";
 
   await apiChatApi("messages", messageeee);
   res.send("Ok");
@@ -101,10 +98,7 @@ app.listen(process.env.PORT ?? 3000, function () {
 async function apiChatApi(telefone, message) {
   
 
-  try {
-    //return await apiResponse.json();
-
-    const url = `${apiUrl}/${method}`;
+    const url = `${apiUrl}/messages`;
 
     axios({
       method: "post",
@@ -123,7 +117,5 @@ async function apiChatApi(telefone, message) {
       },
     });
 
-  } catch (e) {
-    return "error";
-  }
+
 }
