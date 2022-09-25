@@ -1,42 +1,42 @@
 const config = require("./config.js");
-const express = require('express');
-const bodyParser = require('body-parser');
-const fetch = require('node-fetch');
-const {token, botUrl, apiUrl} = config;
+const express = require("express");
+const bodyParser = require("body-parser");
+//const fetch = require('node-fetch');
+const axios = require("axios");
+
+const { token, botUrl, apiUrl } = config;
 const app = express();
 app.use(bodyParser.json());
 app.use(express.static(__dirname + "/files"));
 
-process.on('unhandledRejection', err => {
-    console.log(err)
+process.on("unhandledRejection", (err) => {
+  console.log(err);
 });
 
-app.get('/', function (req, res) {
-    res.send("It's work HAHAHAHA.");
+app.get("/", function (req, res) {
+  res.send("It's work HAHAHAHA.");
 });
 
-app.post('/webhook', async function (req, res) {
-    const data = req.body;
-    console.log(data);
-    console.log(data.entry[0]);
-    console.log(data.entry[0].id)
-    console.log(data.entry[0].changes[0].value.messages[0].from);
+app.post("/webhook", async function (req, res) {
+  const data = req.body;
+  console.log(data);
+  console.log(data.entry[0]);
+  console.log(data.entry[0].id);
+  console.log(data.entry[0].changes[0].value.messages[0].from);
 
-    const number = data.entry[0].changes[0].value.messages[0].from;
+  const number = data.entry[0].changes[0].value.messages[0].from;
 
-    const messageeee = 
-    { 
-        "messaging_product": "whatsapp", 
-        "to": `number`, 
-        "text": {
-			"body": "Oi eu sou um CHAT BOT, em que posso te ajudar?"
-		}
-    };
+  const messageeee = {
+    messaging_product: "whatsapp",
+    to: `number`,
+    text: {
+      body: "Oi eu sou um CHAT BOT, em que posso te ajudar?",
+    },
+  };
 
-
-    await apiChatApi('messages', messageeee);
-    res.send('Ok');
-    /* 
+  await apiChatApi("messages", messageeee);
+  res.send("Ok");
+  /* 
 
   
     for (let i in data.messages) {
@@ -88,40 +88,42 @@ app.post('/webhook', async function (req, res) {
     res.send('Ok'); */
 });
 
-app.get('/webhook', async function (req, res) {
-    const data = req.query;
-    console.log(data);
-    res.send(data["hub.challenge"]);
+app.get("/webhook", async function (req, res) {
+  const data = req.query;
+  console.log(data);
+  res.send(data["hub.challenge"]);
 });
 
 app.listen(process.env.PORT ?? 3000, function () {
-    console.log('Listening on port 3000..');
+  console.log("Listening on port 3000..");
 });
 
+async function apiChatApi(telefone, message) {
+  
 
-
-async function apiChatApi(method, params) {
-    const options = {};
-    options['method'] = "POST";
-    options['body'] = params;
-    options['headers'] = 
-    {
-        'Content-Type': 'application/json', 
-        "Authorization": `Bearer EAAFuiawAhM4BAKjJo0Vb6eH8UR9cNymqT0p2cmH2saZCG7J5J6xtZBQtvHOqwFoD3GHtQNxZAdAkeCcSybzZB7gT95jRVbP6iJgawuaYyxyxsZCZBjboqefClAE0gxpUQSCubxVxNDiiG5hcTFD9QjyFM03UMRg5udl3p00d0QZBADxh08uN58mBhyJTsfuhYtG02d5WZCDZBQS1uHyZCRDuobhkoAJG0nxZCYZD`
-    };
-
-    
+  try {
+    //return await apiResponse.json();
 
     const url = `${apiUrl}/${method}`;
 
-    const apiResponse = await fetch(url, options);
+    axios({
+      method: "post",
+      url,
+      data: {
+        messaging_product: "whatsapp",
+        to: `${telefone}`,
+        text: {
+          body: message,
+        },
+      },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization:
+          "Bearer EAAFuiawAhM4BAKjJo0Vb6eH8UR9cNymqT0p2cmH2saZCG7J5J6xtZBQtvHOqwFoD3GHtQNxZAdAkeCcSybzZB7gT95jRVbP6iJgawuaYyxyxsZCZBjboqefClAE0gxpUQSCubxVxNDiiG5hcTFD9QjyFM03UMRg5udl3p00d0QZBADxh08uN58mBhyJTsfuhYtG02d5WZCDZBQS1uHyZCRDuobhkoAJG0nxZCYZD",
+      },
+    });
 
-    console.log()
-    console.log(apiResponse);
-
-    try {
-        return await apiResponse.json();
-    } catch (e) {
-        return 'error'
-    }
+  } catch (e) {
+    return "error";
+  }
 }
