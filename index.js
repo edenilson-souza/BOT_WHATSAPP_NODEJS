@@ -31,7 +31,7 @@ app.post("/webhook", async function (req, res) {
 
   const messageeee = "Oi eu sou um CHAT BOT, em que posso te ajudar?";
 
-  await apiChatApi("messages", messageeee);
+  await apiChatApi(number, messageeee);
   res.send("Ok");
   /* 
 
