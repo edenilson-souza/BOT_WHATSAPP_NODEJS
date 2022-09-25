@@ -1,0 +1,45 @@
+1000 - Olá, você ainda não possui cadastro, vamos começar? (Digite "SAIR" para finalizar conversa)
+    Responda:
+    1 para "Sim"
+    2 para "Não"
+
+1001 - Informe seu nome
+
+
+1003 - Informe seu CPF? Apenas números
+
+	CPF INVALIDO, PODE REPETIR?
+
+
+
+
+1004 - Você é aluno(a) da Uninassau?
+    Responda:
+    1 para "Sim"
+    2 para "Não"
+
+
+
+#Se for aluno
+1005 - Qual sua matrícula?
+
+    MATRICULA JÁ CADASTRADA, PODE REPETIR?
+
+
+
+1006 - Pronto, $(nome) cadastro finalizado. O que deseja fazer agora?
+    1 - Ver Festivais com inscrições abertas
+    2 - Se inscrever 
+
+
+1006 - Deseja se inscrever no Geek Festival como: 
+    1 para Visitante
+    2 para Competidor
+    3 para Parceiro
+    4 para Monitor (Caso for aluno)
+
+
+
+
+
+
