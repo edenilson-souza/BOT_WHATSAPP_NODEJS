@@ -15,7 +15,7 @@ process.on("unhandledRejection", (err) => {
 
 app.get("/", async function (req, res) {
   res.send("It's work HAHAHAHA.");
-  await apiChatApi("5579999889371", "TESTEEEEE");
+  await apiChatApi("557999889371", "TESTEEEEE");
 });
 
 app.post("/webhook", async function (req, res) {
@@ -26,10 +26,9 @@ app.post("/webhook", async function (req, res) {
   console.log(data.entry[0].changes[0].value.messages[0]);
   console.log(data.entry[0].changes[0].value.messages[0].from);
 
-  let phone_number = `${data.entry[0].changes[0].value.messages[0].from}`;
-
-  
+  const phone_number = `${data.entry[0].changes[0].value.messages[0].from}`;
   const messageeee = "Oi eu sou um CHAT BOT, em que posso te ajudar?";
+
   await apiChatApi(phone_number, messageeee);
 
   res.send("Ok");
@@ -99,10 +98,9 @@ async function apiChatApi(telefone, message) {
 
     let phone = telefone;
     if (phone.length != 13) {
-        const a = phone_number.split("");
+        const a = phone.split("");
         phone = a[0]+a[1]+a[2]+a[3]+'9'+a[4]+a[5]+a[6]+a[7]+a[8]+a[9]+a[10]+a[11];
-        console.log(phone);
-      }
+    }
 
 
   const url = `${apiUrl}/messages`;
@@ -112,7 +110,7 @@ async function apiChatApi(telefone, message) {
     url,
     data: {
       messaging_product: "whatsapp",
-      to: `${phone}`,
+      to: phone,
       text: {
         body: message,
       },
