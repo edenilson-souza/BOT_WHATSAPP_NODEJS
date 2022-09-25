@@ -28,11 +28,7 @@ app.post("/webhook", async function (req, res) {
 
   let phone_number = `${data.entry[0].changes[0].value.messages[0].from}`;
 
-  if (phone_number.length != 13) {
-    const a = phone_number.split("");
-    phone_number = a[0]+a[1]+a[2]+a[3]+'9'+a[4]+a[5]+a[6]+a[7]+a[8]+a[9]+a[10]+a[11];
-  }
-
+  
   const messageeee = "Oi eu sou um CHAT BOT, em que posso te ajudar?";
   await apiChatApi(phone_number, messageeee);
 
@@ -100,6 +96,15 @@ app.listen(process.env.PORT ?? 3000, function () {
 });
 
 async function apiChatApi(telefone, message) {
+
+    let phone = telefone;
+    if (phone.length != 13) {
+        const a = phone_number.split("");
+        phone = a[0]+a[1]+a[2]+a[3]+'9'+a[4]+a[5]+a[6]+a[7]+a[8]+a[9]+a[10]+a[11];
+        console.log(phone);
+      }
+
+
   const url = `${apiUrl}/messages`;
 
   axios({
@@ -107,7 +112,7 @@ async function apiChatApi(telefone, message) {
     url,
     data: {
       messaging_product: "whatsapp",
-      to: `${telefone}`,
+      to: `${phone}`,
       text: {
         body: message,
       },
