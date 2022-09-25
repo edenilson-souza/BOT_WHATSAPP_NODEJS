@@ -17,6 +17,7 @@ app.get('/', function (req, res) {
 
 app.post('/webhook', async function (req, res) {
     const data = req.body;
+    console.log(data);
     for (let i in data.messages) {
         const author = data.messages[i].author;
         const body = data.messages[i].body;
@@ -68,7 +69,7 @@ app.post('/webhook', async function (req, res) {
 
 app.get('/webhook', async function (req, res) {
     const data = req.query;
-    data["hub.challenge"];
+    console.log(data);
     res.send(data["hub.challenge"]);
 });
 
