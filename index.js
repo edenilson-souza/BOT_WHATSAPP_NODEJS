@@ -42,15 +42,15 @@ app.post("/webhook", function (req, res) {
 
 
   let resposta_to = '';
-  objIndex = chats_ativos.findIndex((telefone => telefone = phone_number));
+  i = chats_ativos.findIndex((telefone => telefone = phone_number));
   if(session.sequencia == 0){
     resposta_to = 'Olá, você ainda não possui cadastro, vamos começar? (Digite "SAIR" para finalizar conversa) \n Responda:\n1 para "Sim"\n2 para "Não"';
-    chats_ativos[objIndex].sequencia = 1;
+    chats_ativos[i].sequencia = 1;
   }
   else if(session.sequencia == 1){
     if(message_user == "1"){
       resposta_to = 'Ok, vamos começar :D\nPor favor, me informe seu nome.';
-      //chats_ativos[objIndex].sequencia = 1;
+      //chats_ativos[i].sequencia = 1;
     }else{
       resposta_to = 'Por favor, me informe o número da opção desejada.'
     }
