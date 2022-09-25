@@ -20,9 +20,25 @@ app.post('/webhook', async function (req, res) {
     console.log(data);
     console.log(data.entry[0]);
     console.log(data.entry[0].id)
-    console.log(data.entry[0].changes[0].value);
-    const chatId = data.entry[0].id;
-    await apiChatApi('message', {chatId: chatId, body: "Oi eu sou um teste"});
+    console.log(data.entry[0].changes[0].value.messages[0].from);
+
+    const number = data.entry[0].changes[0].value.messages[0].from;
+
+    const messageeee = 
+    { "messaging_product": "whatsapp", 
+        "to": number, 
+        "type": "template", 
+        "template": { 
+            "name": "Oi eu sou um teste", 
+            "language": { 
+                "code": "pt_BR" 
+            } 
+        } 
+    };
+
+
+
+    await apiChatApi('message', messageeee);
     res.send('Ok');
     /* 
 
@@ -86,13 +102,21 @@ app.listen(process.env.PORT ?? 3000, function () {
     console.log('Listening on port 3000..');
 });
 
+
+
 async function apiChatApi(method, params) {
     const options = {};
     options['method'] = "POST";
     options['body'] = JSON.stringify(params);
-    options['headers'] = {'Content-Type': 'application/json'};
+    options['headers'] = 
+    {
+        'Content-Type': 'application/json', 
+        "Authorization": `Bearer ${token}`
+    };
 
-    const url = `${apiUrl}/${method}?token=${token}`;
+    
+
+    const url = `${apiUrl}/${method}`;
 
     const apiResponse = await fetch(url, options);
     try {
