@@ -67,7 +67,8 @@ app.post('/webhook', async function (req, res) {
 });
 
 app.get('/webhook', async function (req, res) {
-    const data = req.body;
+    const data = req.query;
+    console.log(data);
     res.send(data.hub.challenge);
 });
 
