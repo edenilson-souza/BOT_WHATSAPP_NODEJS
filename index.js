@@ -28,7 +28,7 @@ app.post('/webhook', async function (req, res) {
     { "messaging_product": "whatsapp", 
         "to": number, 
         "text": {
-			"body": "PRIMEIRA MENSAGEM"
+			"body": "Oi eu sou um CHAT BOT, em que posso te ajudar?"
 		}
     };
 
