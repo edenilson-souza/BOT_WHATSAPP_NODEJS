@@ -47,7 +47,7 @@ app.post("/webhook", function (req, res) {
     chats_ativos[i].sequencia = 0;
   }
   if(session.sequencia == 0){
-    resposta_to = 'Olá, você ainda não possui cadastro, vamos começar? (Digite "SAIR" para finalizar conversa) \n Responda:\n1 para "Sim"\n2 para "Não"';
+    resposta_to = 'Olá, você ainda não possui cadastro, vamos começar? (Digite "SAIR" para finalizar conversa)\nResponda:\n1 para "Sim"\n2 para "Não"';
     chats_ativos[i].sequencia = 1;
   }
   else if(session.sequencia == 1){
