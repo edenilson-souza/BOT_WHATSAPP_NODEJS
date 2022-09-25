@@ -25,8 +25,9 @@ app.post('/webhook', async function (req, res) {
     const number = data.entry[0].changes[0].value.messages[0].from;
 
     const messageeee = 
-    { "messaging_product": "whatsapp", 
-        "to": number, 
+    { 
+        "messaging_product": "whatsapp", 
+        "to": `number`, 
         "text": {
 			"body": "Oi eu sou um CHAT BOT, em que posso te ajudar?"
 		}
@@ -114,6 +115,8 @@ async function apiChatApi(method, params) {
     const url = `${apiUrl}/${method}`;
 
     const apiResponse = await fetch(url, options);
+
+    console.log(apiResponse);
 
     try {
         return await apiResponse.json();
