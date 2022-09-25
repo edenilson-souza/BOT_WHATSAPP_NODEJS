@@ -49,6 +49,9 @@ app.post("/webhook", function (req, res) {
     if(message_user == "1"){
       resposta_to = 'Ok, vamos começar :D\nPor favor, me informe seu nome.';
       chats_ativos[i].sequencia = 2;
+    }
+    else if(message_user == "2"){
+      chats_ativos[i].sequencia = 0;
     }else{
       resposta_to = 'Por favor, me informe o número da opção desejada.'
     }
