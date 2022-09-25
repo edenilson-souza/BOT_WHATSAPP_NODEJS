@@ -18,6 +18,12 @@ app.get('/', function (req, res) {
 app.post('/webhook', async function (req, res) {
     const data = req.body;
     console.log(data);
+    const chatId = data.entry[0].id;
+    await apiChatApi('message', {chatId: chatId, body: "Oi eu sou um teste"});
+    res.send('Ok');
+    /* 
+
+  
     for (let i in data.messages) {
         const author = data.messages[i].author;
         const body = data.messages[i].body;
@@ -64,7 +70,7 @@ app.post('/webhook', async function (req, res) {
             });
         }
     }
-    res.send('Ok');
+    res.send('Ok'); */
 });
 
 app.get('/webhook', async function (req, res) {
